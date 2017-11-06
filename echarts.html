@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- including ECharts file -->
+    <script src="echarts.js"></script>
+    <!-- including the data -->
+    <script src="data.js" charset="utf-8"></script>
+</head>
+<body>
+    <!-- prepare a DOM container with width and height -->
+    <div id="main" style="width: 900px;height:400px;"></div>
+    <script type="text/javascript">
+        // based on prepared DOM, initialize echarts instance
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // specify chart configuration item and data
+        var option = {
+            title: {
+                text: 'Performance'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataZoom: {
+
+                      show: true,
+                      realtime: true,
+                      start: 30,
+                      end: 70,
+                      xAxisIndex: [0, 1]
+                    },
+                    dataView: {readOnly: false},
+                    magicType: {type: ['line', 'bar']},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {},
+            legend: {
+                data: ["Site - Battery Power","Site - Grid Power","Site - PV Power","Site - Load Power"]
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data:timestamp
+            },
+            yAxis: {
+              type: 'value',
+              axisLabel: {
+                formatter: '{value} °C'
+              }
+            },
+            series: all_data
+        };
+
+        // use configuration item and data specified to show chart
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
