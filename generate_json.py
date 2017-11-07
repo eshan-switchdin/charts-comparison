@@ -11,6 +11,7 @@ import dateutil.parser
 
 def main():
     data={}
+    file_contents=[]
     if len(sys.argv) < 2:
         print("please provide the csv file name as the argument")
         exit(1)
@@ -53,6 +54,20 @@ def main():
     print(data_out)
     print('var timestamp = ')
     print(timestamp)
+
+    # print('return "" + ')
+    # print('"' + file_contents[0] + '\\n"+')
+    # file_contents.pop(0)
+    # file_contents.pop()
+    #
+    # for line in file_contents:
+    #     line = line.split(',')
+    #     line[0] = str((dateutil.parser.parse(line[0])).date())+' '+str((dateutil.parser.parse(line[0])).time())
+    #     #line[0]=line[0].replace(' ','').replace(':','').replace('-','')
+    #     for value in range( len(line) ):
+    #         if line[value] == '':
+    #             line[value]=0
+    #     print('"'+str(line).replace(']','').replace('[','').replace("'",'') + '\\n"+')
 
 
 
