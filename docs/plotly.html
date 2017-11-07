@@ -55,22 +55,24 @@
     title: 'Time Series with Rangeslider',
     xaxis: {
       autorange: true,
-      range: ['2015-02-17', '2017-02-16'],
+      range: ['2017-11-06 00:00:00', '2017-11-06 12:45:00'],
       rangeselector: {buttons: [
           {
             count: 1,
-            label: '1m',
-            step: 'month',
+            label: '1Hr',
+            step: 'hour',
             stepmode: 'backward'
           },
           {
             count: 6,
-            label: '6m',
-            step: 'month',
+            label: '6Hr',
+            step: 'hour',
             stepmode: 'backward'
           },
           {step: 'all'}
-        ]}
+        ]},
+    rangeslider: {range: ['2017-11-06 00:00:00', '2017-11-06 12:45:00']},
+    type: 'date'
     },
     yaxis: {
       autorange: true,

@@ -6,6 +6,8 @@ A script to convert the csv data from the website to echarts compatible json
 '''
 
 import sys
+import time
+import dateutil.parser
 
 def main():
     data={}
@@ -43,7 +45,9 @@ def main():
         if data_type != 'Timestamp':
             data_out.append({'name':data_type, 'type':'bar', 'data':data_array})
         else:
-            timestamp.append(data_array)
+            timestamp=list(map(lambda x:str((dateutil.parser.parse(x)).date())+' '+str((dateutil.parser.parse(x)).time()), data_array[:-1]))
+
+
 
     print('var all_data=')
     print(data_out)
