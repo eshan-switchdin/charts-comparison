@@ -27,8 +27,8 @@ def main():
             if ignore_first_line:
                 line=line.split(',')
                 for value in range (len(line)):
-                    if line[value] == '':
-                        line[value]=0
+                    #if line[value] == '':
+                    #    line[value]=0
                     try:
                         data[file_contents[0].split(',')[value]].append(float(line[value]))
                     except Exception as e:
