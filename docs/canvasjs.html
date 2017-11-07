@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <!-- including the data -->
+  <script src="data.js" charset="utf-8"></script>
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	animationEnabled: true,
+	zoomEnabled: true,
+	title: {
+		text: "Try Zooming and Panning"
+	},
+	data: []
+});
+
+addDataPoints(1000);
+chart.render();
+
+function addDataPoints(noOfDps) {
+	// var xVal = chart.options.data[0].dataPoints.length + 1, yVal = 100;
+	// for(var i = 0; i < noOfDps; i++) {
+	// 	yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
+	// 	chart.options.data[0].dataPoints.push({x: xVal,y: yVal});
+	// 	xVal++;
+	// }
+
+  for (var i = 0; i < all_data.length; i++) {
+    chart.options.data.push({
+  		type: "line",
+  		dataPoints: [],
+      name: all_data[i]['name'],
+		  axisYType: "secondary",
+      showInLegend: true
+
+  	});
+    for (var j = 0; j < all_data[i]['data'].length; j++) {
+      //if( all_data[i]['data'][j] == "" ) all_data[i]['data'][j]=0
+      chart.options.data[i].dataPoints.push({x:new Date(timestamp[j]), y:all_data[i]['data'][j]});
+    }
+  }
+
+  console.log(chart.options)
+}
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
