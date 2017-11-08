@@ -29,6 +29,7 @@ $.getJSON('./Number_2_Sportsground_Mon_Nov_06_2017_10.csv', function (csv) {
   .fail(function(csv) {
       Highcharts.chart('container', {
           chart:{
+            defaultSeriesType: 'line',
             zoomType:'x'
           },
 
@@ -93,6 +94,7 @@ $.getJSON('./Number_2_Sportsground_Mon_Nov_06_2017_10.csv', function (csv) {
 
           plotOptions: {
               series: {
+                  connectNulls:true,
                   cursor: 'pointer',
                   point: {
                       events: {
