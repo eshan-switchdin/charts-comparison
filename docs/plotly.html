@@ -47,7 +47,9 @@
       mode:"lines",
       name:e.name,
       x:timestamp,
-      y:e.data
+      y:e.data,
+      line: {shape: 'linear'},
+      connectgaps: true
     })
   })
 
