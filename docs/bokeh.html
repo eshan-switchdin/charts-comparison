@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css" type="text/css" />
 <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
 <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-api-0.12.5.min.js"></script>
+  <!-- including the data -->
+  <script src="data.js" charset="utf-8"></script>
 <!-- The order of CSS and JS imports above is important. -->
 </head>
 <body>
@@ -18,34 +20,62 @@
 
 <script type="text/javascript">
 // arrays to hold data
-var source = new Bokeh.ColumnDataSource({
-data: { x: [Math.random()], y: [Math.random()] }
-});
+
+var colors=[
+  "#c05020",
+  "#19ccb7",
+  "#6c314e",
+  "#067f23",
+  "#98dc49",
+  "#c1f70a",
+  "#c30601",
+  "#c2188f",
+  "#e25670",
+  "#e4ce74",
+  "#70f97d"
+]
+chart_series=[]
+for (var i = 0; i < all_data.length; i++) {
+  chart_series.push({
+    x:[], y:[], color:[]
+  });
+  for (var j = 0; j < all_data[i]['data'].length; j++) {
+    //if( all_data[i]['data'][j] == "" )all_data[i]['data'][j]=0//*/
+    chart_series[i].x.push( new Date(timestamp[j]).getTime() / 1000 )
+    chart_series[i].y.push(all_data[i]['data'][j])
+    chart_series[i].color.push(colors[i])
+  }
+}
+
+var source = []
+for (var i = 0; i < all_data.length; i++){
+  source.push(
+    new Bokeh.ColumnDataSource({
+      data: { x: chart_series[i].x, y: chart_series[i].y, colors: chart_series[i].color}
+    })
+  )
+}
 
 // make the plot and add some tools
 var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
 var myplot = document.getElementById('myplot')
 console.log(myplot.offsetWidth)
 var plot = Bokeh.Plotting.figure({title:'Example of Random data', tools: tools, height: 740, width: myplot.offsetWidth });
-
-var scatterData = plot.line({ field: "x" }, { field: "y" }, {
-source: source,
-line_width: 2
-});
-
+console.log(plot.line)
+for (var i = 0; i < all_data.length; i++){
+var scatterData = plot.line(
+  { field: "x" },
+  { field: "y" },
+  {
+    source: source[i],
+    line_width: 2
+  }
+);
+}
 // Show the plot, appending it to the end of the current
 // section of the document we are in.
 Bokeh.Plotting.show(plot, document.getElementById('myplot'));
 
-
-function addPoint() {
-// The data can be added, but generally all fields must be the
-// same length.
-source.data.x.push(Math.random());
-source.data.y.push(Math.random());
-// Also, the DataSource object must be notified when it has changed.
-source.trigger('change');
-}
 </script>
 
 </body>
