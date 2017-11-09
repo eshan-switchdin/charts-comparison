@@ -38,7 +38,13 @@ function addDataPoints(noOfDps) {
 
   	});
     for (var j = 0; j < all_data[i]['data'].length; j++) {
-      //if( all_data[i]['data'][j] == "" ) all_data[i]['data'][j]=0
+      if( all_data[i]['data'][j] == "" ) {
+        var interpolatedY =0;
+        if( j > 2 ){
+          var interpolatedY = ((new Date(timestamp[j]) - chart.options.data[0].dataPoints[0].x ) * (chart.options.data[0].dataPoints[j-1].y - chart.options.data[0].dataPoints[0].y) / (chart.options.data[0].dataPoints[j-1].x - chart.options.data[0].dataPoints[0].x) ) + (chart.options.data[0].dataPoints[0].y);
+          all_data[i]['data'][j]=interpolatedY
+        }
+      }
       chart.options.data[i].dataPoints.push({x:new Date(timestamp[j]), y:all_data[i]['data'][j]});
     }
   }
